@@ -1,2 +1,0 @@
-# JavaDocs
-Java Training Sessions

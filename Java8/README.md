@@ -1,1 +1,2 @@
-# Java 8
+# JavaDocs
+Java Training Sessions
