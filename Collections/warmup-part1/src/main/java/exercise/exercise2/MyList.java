@@ -1,6 +1,8 @@
 package exercise.exercise2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * Created by Radu.Hoaghe on 20.04.2015.
@@ -39,23 +41,89 @@ public class MyList<Integer> extends ArrayList<Integer> {
 
     // A counter to hold the number of adds that were made on the list
     private int differentElements;
+    private ArrayList<Integer>Lista=new ArrayList<Integer>(30);
 
-    public MyList(){
-        differentElements = 0;
-    }
+    public MyList() {differentElements = 0;}
 
-    // TODO Exercise #2 a) Override add() and addAll() methods so that the list should retain the number of
-    // TODO Exercise #2 a) different elements (Hint: check out the methods signatures on the List documentation)
+        // TODO Exercise #2 a) Override add() and addAll() methods so that the list should retain the number of
+        // TODO Exercise #2 a) different elements (Hint: check out the methods signatures on the List documentation)
+        @Override
+        public boolean add (Integer e)
+        {
 
-    // TODO Exercise #2 b) Override the remove methods so that the number of different elements is updated when
-    // TODO Exercise #2 b) an element is removed
-    // TODO Exercise #2 b) hint: you need to update the number of different elements only when
-    // TODO Exercise #2 b) the element that needs to be removed is the last element of its kind in the list
+            if (!Lista.contains(e))
+                   // differentElements = (int) Arrays.stream(Lista).distinct().count();
+                differentElements++;
+                Lista.add(e);
+                return super.add(e);
 
-    // TODO Exercise #2 c) Override the clear method and reset the number of different elements
+        }
+            @Override
+            public void add ( int index, Integer e){
+                 super.add(e);
+                if (!Lista.contains(e))
+                    differentElements++;
+                Lista.add(e);
+                    //differentElements = (int) Arrays.stream(Lista).distinct().count();
 
-    // TODO Exercise #2 d) Return the number of different elements that exist into the list
-    public int getDifferentElements() {
-        return 0;
-    }
+                }
+    @Override
+    public boolean addAll(Collection c)
+            { super.addAll(c);
+
+                 for(Object i:c){
+                     if(!Lista.contains(i))
+                         differentElements++;
+
+                 }
+                 return true ;
+            }
+ @Override
+ public boolean addAll(int index, Collection c) {
+     super.addAll(index,c);
+     for (Object i : c) {
+         if (!Lista.contains(i))
+             differentElements++;
+     }
+     return true;
+ }
+
+            // TODO Exercise #2 b) Override the remove methods so that the number of different elements is updated when
+            // TODO Exercise #2 b) an element is removed
+            @Override
+            public Integer remove ( int index)
+            {
+                Integer oldV = Lista.get(index);
+                Lista.remove(index);
+                if (!Lista.contains(oldV))
+                   differentElements--;
+                return oldV;
+            }
+            @Override
+            public boolean remove (Object obj){
+                   Lista.remove(obj);
+
+                if(!Lista.contains(obj))
+                    differentElements--;
+//            differentElements = (int) Arrays.stream(Lista).distinct().count();
+            return false;
+            }
+
+
+            // TODO Exercise #2 b) hint: you need to update the number of different elements only when
+            // TODO Exercise #2 b) the element that needs to be removed is the last element of its kind in the list
+
+            // TODO Exercise #2 c) Override the clear method and reset the number of different elements
+            @Override
+            public void clear ()
+            {
+                Lista.clear();
+                differentElements = 0;
+            }
+
+            // TODO Exercise #2 d) Return the number of different elements that exist into the list
+        public int getDifferentElements () {
+                return differentElements;
+        }
 }
+

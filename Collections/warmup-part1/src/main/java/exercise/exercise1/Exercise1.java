@@ -1,7 +1,9 @@
 package exercise.exercise1;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
 
 /**
  * Created by Radu.Hoaghe on 4/20/2015.
@@ -26,7 +28,17 @@ public class Exercise1{
 
     // TODO Exercise #1 a) Compute sum and get the min and the max from givenList, iterating through it using ListIterator
     public List<Integer> iterateUsingListIterator(){
-
+        int sum=0;
+        int max=givenList.get(0);
+        int min=givenList.get(0);
+        for (Iterator<Integer> iter = givenList.listIterator(); iter.hasNext(); ) {
+            Integer element = iter.next();
+            sum+=element;
+            if(max<element)
+                max=element;
+            if(min>element)
+                min=element;
+        }
         // This List is used only for testing so you don't have to modify it
         List<Integer> testValues = new ArrayList<Integer>();
 
@@ -37,9 +49,9 @@ public class Exercise1{
 
 
         // TODO Exercise #1 a2) Uncomment the following three lines in order to check your computed values using tests
-//        testValues.add(sum);
-//        testValues.add(min);
-//        testValues.add(max);
+        testValues.add(sum);
+        testValues.add(min);
+        testValues.add(max);
 
         return testValues;
     }
@@ -47,6 +59,18 @@ public class Exercise1{
     // TODO Exercise #1 b) Compute the sum and get the min and the max from the even (RO: pare) positions in the list,
     // TODO Exercise #1 b) iterating through it using classic for loop
     public List<Integer> iterateUsingForLoop(){
+        int sum=0;
+        int max=givenList.get(0);
+        int min=givenList.get(0);
+            for(int i=0;i<givenList.size();i++ )
+                if(i%2==0)
+                {
+                    sum+=givenList.get(i);
+                    if(max<givenList.get(i))
+                        max=givenList.get(i);
+                    if(min>givenList.get(i))
+                        min=givenList.get(i);
+                }
 
         // This List is used only for testing so you don't need to modify it
         List<Integer> testValues = new ArrayList<Integer>();
@@ -58,9 +82,9 @@ public class Exercise1{
 
 
         // TODO Exercise #1 b2) Uncomment the following three lines in order to check your computed values using tests
-//        testValues.add(sum);
-//        testValues.add(min);
-//        testValues.add(max);
+        testValues.add(sum);
+        testValues.add(min);
+        testValues.add(max);
 
         return testValues;
     }
@@ -68,7 +92,19 @@ public class Exercise1{
     // TODO Exercise #1 c) Compute the sum and get the min and the max from the odd (RO: impare) elements of the list
     // TODO Exercise #1 c) iterating through it using foreach loop
     public List<Integer> iterateUsingForEachLoop(){
-
+        int sum=0;
+        int max=givenList.get(0);
+        int min=givenList.get(0);
+        for (Integer element : givenList) {
+                if(element%2!=0)
+            {
+                sum+=element;
+                if(max<element)
+                    max=element;
+                if(min>element)
+                    min=element;
+            }
+        }
         // This List is used only for testing so you don't need to modify it
         List<Integer> testValues = new ArrayList<Integer>();
 
@@ -79,10 +115,12 @@ public class Exercise1{
 
 
         // TODO Exercise #1 c2) Uncomment the following three lines in order to check your computed values using tests
-//        testValues.add(sum);
-//        testValues.add(min);
-//        testValues.add(max);
+        testValues.add(sum);
+        testValues.add(min);
+        testValues.add(max);
 
         return testValues;
     }
+
+
 }

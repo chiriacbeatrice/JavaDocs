@@ -3,8 +3,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Iterator;
-
 /**
  * //TODO Uncomment those lines after developing the {@link MyImplementedList} methods.
  * //TODO You should start checking your code by running the specific tests, after developing the add(Object o_O) method.
@@ -60,10 +58,8 @@ public class Exercise4Test {
 
     @Test
     public void testIsEmptyMethodOverIntegerList() {
-//        Iterator<Integer> iterator = testingIntegerValues.iterator();
-//        while (iterator.hasNext()) {
-//            iterator.next();
-//            iterator.remove();
+//        for (int i = 0; i < testingIntegerValues.size(); i++) {
+//            testingIntegerValues.remove(i);
 //        }
 
 //        Assert.assertTrue(testingIntegerValues.isEmpty());
