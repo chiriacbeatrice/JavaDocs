@@ -11,6 +11,13 @@ public class QueryBuilder {
     private List<ColumnInfo> queryColumns;
     private QueryType queryType;
     private List<Condition> conditions;
+    private String joinedTableName;
+    private String firstEntityJoinColumn;
+    private String secondEntityJoinColumn;
+    private String likeSubstring;
+    private static final String INNER_JOIN_KEYWORD = "INNER JOIN";
+    private static final String ON_KEYWORD="ON";
+    private static final String LIKE_KEYWORD="LIKE";
 
     public String getValueForQuery(Object value){
         if (value instanceof String){
@@ -64,15 +71,22 @@ public class QueryBuilder {
         }
         sql.append(" from " + tableName);
 
+        sql.append(createInnerJoinSubquery());
+
         boolean whereAdded = false;
         if(conditions != null && !conditions.isEmpty()) {
             for(Condition condition : conditions) {
-                sql.append(whereAdded ? " and" : " where ").append(condition.getColumnName()).append("=")
+                sql.append(whereAdded ? " and " : " where ").append(condition.getColumnName()).append(condition.getConditionName())
                         .append(getValueForQuery(condition.getValue()));
                 whereAdded = true;
             }
         }
         return sql.toString();
+    }
+
+    private String createInnerJoinSubquery() {
+        return " "+INNER_JOIN_KEYWORD+" "+this.joinedTableName+" "+ON_KEYWORD+" "+this.tableName+"."
+                +firstEntityJoinColumn+"="+joinedTableName+"."+secondEntityJoinColumn + " ";
     }
 
     private String createDeleteQuery(){
@@ -148,5 +162,25 @@ public class QueryBuilder {
             return createDeleteQuery();
         }
         return null;
+    }
+
+    public QueryBuilder setJoinedTableName(String tableName) {
+        this.joinedTableName = tableName;
+        return this;
+    }
+
+    public QueryBuilder setFirstEntityJoinColumn(String firstEntityJoinColumn) {
+        this.firstEntityJoinColumn = firstEntityJoinColumn;
+        return this;
+    }
+
+    public QueryBuilder setSecondEntityJoinColumn(String secondEntityJoinColumn) {
+        this.secondEntityJoinColumn = secondEntityJoinColumn;
+        return this;
+    }
+
+    public QueryBuilder setLikeSubstring(String likeSubstring) {
+        this.likeSubstring = likeSubstring;
+        return this;
     }
 }

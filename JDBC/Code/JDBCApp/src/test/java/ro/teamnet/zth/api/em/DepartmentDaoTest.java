@@ -1,8 +1,8 @@
 package ro.teamnet.zth.api.em;
 
 import org.junit.Test;
+import ro.teamnet.zth.appl.dao.DepartmentDao;
 import ro.teamnet.zth.appl.domain.Department;
-import ro.teamnet.zth.appl.domain.Employee;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -11,17 +11,14 @@ import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
 
-
 /**
- * Created by Beatrice.Chiriac on 7/13/2017.
+ * Created by Beatrice.Chiriac on 7/14/2017.
  */
-public class EntityManagerImplTest {
-
-
+public class DepartmentDaoTest {
     @Test
     public void findByIdTest() throws SQLException {
 
-        EntityManagerImpl objManager=new EntityManagerImpl() ;
+        DepartmentDao objManager=new DepartmentDao() ;
 
         Department department=objManager.findById(Department.class,100L);
 
@@ -32,7 +29,7 @@ public class EntityManagerImplTest {
 
     public void getNextIdTest() throws SQLException {
 
-        EntityManagerImpl objManager=new EntityManagerImpl();
+        DepartmentDao objManager=new DepartmentDao();
 
         Long id=objManager.getNextIdVal("DEPARTMENTS","DEPARTMENT_ID");
 
@@ -41,7 +38,7 @@ public class EntityManagerImplTest {
 
     @Test
     public void insertTest() throws NoSuchFieldException, SQLException {
-        EntityManagerImpl objManager=new EntityManagerImpl();
+      DepartmentDao objManager=new DepartmentDao();
 
         Department department=new Department();
 
@@ -58,7 +55,7 @@ public class EntityManagerImplTest {
     @Test
     public void findAllTest() throws SQLException {
 
-        EntityManagerImpl objManager=new EntityManagerImpl();
+        DepartmentDao objManager=new DepartmentDao();
 
         List<Department> departments=objManager.findAll(Department.class);
 
@@ -69,7 +66,7 @@ public class EntityManagerImplTest {
     @Test
     public void update() throws NoSuchFieldException, IllegalAccessException, SQLException, InstantiationException {
 
-        EntityManagerImpl objManager=new EntityManagerImpl();
+        DepartmentDao objManager=new DepartmentDao();
         Department department=new Department();
 
 
@@ -85,8 +82,7 @@ public class EntityManagerImplTest {
 
     @Test
     public void deleteTest() throws NoSuchFieldException, IllegalAccessException, SQLException {
-
-        EntityManagerImpl objManager=new EntityManagerImpl();
+        DepartmentDao objManager=new DepartmentDao();
         Department department=new Department();
 
         department.setId(280L);
@@ -99,7 +95,7 @@ public class EntityManagerImplTest {
     @Test
     public void findByParamsTest() throws NoSuchFieldException, IllegalAccessException, SQLException {
 
-        EntityManagerImpl objManager=new EntityManagerImpl();
+       DepartmentDao objManager=new DepartmentDao();
 
         Map<String,Object> MyMapParams=new HashMap<String,Object>();
         MyMapParams.put("DEPARTMENT_ID",220L);
@@ -108,21 +104,6 @@ public class EntityManagerImplTest {
         List<Department> list=objManager.findByParams(Department.class,MyMapParams);
 
         assertEquals(list.size(),1);
-
-    }
-
-    @Test
-    public void findWithJoinLike() throws SQLException {
-        EntityManagerImpl objManager=new EntityManagerImpl();
-        Employee emp=new Employee();
-        emp.setDepartmentId("60");
-        Department dep=new Department();
-        dep.setId(60L);
-        dep.setDepartmentName("IT");
-//
-//        List<Employee> employees=objManager.findWithJoinLike(Employee.class,Department.class,emp.getDepartmentId(),dep.getId(),
-//                                                             "IT",dep.getDepartmentName());
-//        assertEquals(employees.get(0).getFirstName(),"Alexander");
 
     }
 }
